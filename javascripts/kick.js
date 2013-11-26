@@ -17,10 +17,9 @@ function calculate (makes, misses) {
 	// The rate at which bonus points are awarded for longer kicks
 	var roll = 10.0;
 	// Some temporary values
-	var value, oldValue, current, sortedMisses;
+	var current, sortedMisses;
 	// Provide a small starting value so the kicker starts 
 	// with a grade of 100% 
-//	var numerator = 1, denominator;
 	var numerator = 10, denominator;
 
 	// Go through the makes first,
@@ -33,9 +32,7 @@ function calculate (makes, misses) {
 		}
 		numerator += current;
 		// Assign bonus points to longer kicks
-		if (current > yaw) {
-			numerator += roll * (current - yaw);
-		}
+        numerator += Math.max(current - yaw, 0) * roll;
 	}
 	denominator = numerator;
 	
@@ -52,16 +49,13 @@ function calculate (makes, misses) {
 		}
 		// Increase the severity of missing shorter kicks
 		current = Math.max((current - pitch), 0);
-		// Only consider misses that lower the average
-		oldValue = numerator / denominator;
-		value = (numerator + current) / (denominator + yaw);
-		if (oldValue > value) {
+		// Only consider misses that lower the rating
+		if (numerator * yaw > denominator * current) {
 			numerator += current;
 			denominator += yaw;
 		}
 	}
 
     // Cubing the result creates a nice curve
-    value = Math.pow((numerator / denominator), 3.0);
-	return value;
+	return Math.pow((numerator / denominator), 3.0);
 }

@@ -16,11 +16,13 @@ function calculate (makes, misses) {
 	// var yaw = 40.0; // NFL
 	// The rate at which bonus points are awarded for longer kicks
 	var roll = 10.0;
+	var gentleman = .75; // Gentlemen's C
+	var exp = 3.0;
 	// Some temporary values
 	var current, sortedMisses;
 	// Provide a small starting value so the kicker starts 
 	// with a grade of 100% 
-	var numerator = 10, denominator;
+	var numerator = 0, denominator;
 
 	// Go through the makes first,
 	// adding to the numerator and denominator
@@ -34,8 +36,10 @@ function calculate (makes, misses) {
 		// Assign bonus points to longer kicks
         numerator += Math.max(current - yaw, 0) * roll;
 	}
-	denominator = numerator;
-	
+	denominator = numerator + pitch;
+	// Decrease the numerator to keep values below 100%
+	// This will assign a "Gentleman's C" to blank entries
+	numerator = denominator - (pitch * (1 - Math.pow(gentleman,1/exp)));
 	// Go through the misses next,
 	// sort so we consider shorter misses first
     sortedMisses = misses.sort();
@@ -47,8 +51,8 @@ function calculate (makes, misses) {
 		if (current === 0) {
 			continue;
 		}
-		// Increase the severity of missing shorter kicks
-		current = Math.max((current - pitch), 0);
+		// Cap the penalty of missing shorter kicks
+		current = Math.max((current - pitch), pitch);
 		// Only consider misses that lower the rating
 		if (numerator * yaw > denominator * current) {
 			numerator += current;
@@ -57,5 +61,5 @@ function calculate (makes, misses) {
 	}
 
     // Cubing the result creates a nice curve
-	return Math.pow((numerator / denominator), 3.0);
+	return Math.pow((numerator / denominator), exp);
 }

@@ -1,0 +1,54 @@
+<html>
+<script>
+ function setArrays(input) {
+    var result = input;
+    for (var inx = 0; inx < input.xpmakes; inx++){
+        result.makes.push(20);
+    }
+    for (inx = 0; inx < input.xpmisses; inx++){
+        result.misses.push(20);
+    }
+    return result;
+ }
+ function go() {
+    var current, tr, td, string;
+    var testtable = document.getElementById("testtable");
+	for (var inx = 0; inx < input.length; inx++){
+        current = input[inx];
+        tr = document.createElement("tr");
+        td = document.createElement("td");
+        td.innerHTML = current.makes.length ? current.makes.join(",") : "-";
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.innerHTML = current.misses.length ? current.misses.join(",") : "-";
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.innerHTML = current.xpmakes;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.innerHTML = current.xpmisses;
+        tr.appendChild(td);
+        temp = setArrays(input[inx]);
+        td = document.createElement("td");
+        td.innerHTML = Math.round(calculate (temp.makes, temp.misses) * 10000.0) / 100.0 + "%";
+        tr.appendChild(td);
+        testtable.appendChild(tr);
+	}
+}
+</script>
+<script src="javascripts/kick.js"></script>
+<script src="javascripts/kicktest.js"></script>
+<body onload="go()">
+<table border="1px solid black" style="border-collapse:collapse;">
+<tbody id="testtable">
+<tr>
+<th>Makes</th>
+<th>Misses</th>
+<th>XP Makes</th>
+<th>XP Misses</th>
+<th>Rating</th>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

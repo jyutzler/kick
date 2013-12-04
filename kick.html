@@ -1,18 +1,12 @@
 <html>
 <script>
 /**
- * Copyright 2010 by Jeff Yutzler
- * All Rights Reserved
- * This software is provided for use by TheSabre.com 
- * and its affiliates.
- */
-/**
  * This function is here to work with a web page
  * as an event handler to a button
  */
 function go() {
 	// Parse the makes into an array (filtering out empty responses)
-	var makes = document.getElementById("makes").value.split(" ");
+	var makes = document.getElementById("makes").value.split(/\s*[\s,]\s*/);
 	if (isNaN(makes[0])) {
 		makes = [];
 	}
@@ -22,7 +16,7 @@ function go() {
 	}
 	// Parse the misses into an array 
 	var misses = document.getElementById("misses").value;
-	misses = isNaN(misses[0]) ? [] : misses.split(" ");
+	misses = isNaN(misses[0]) ? [] : misses.split(/\s*[\s,]\s*/);
 	// Make a temporary array containing the missed extra points
 	// and insert it to the beginning of the misses array
 	var tempMisses = [];

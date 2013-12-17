@@ -7,7 +7,7 @@
 function go() {
 	// Parse the makes into an array (filtering out empty responses)
 	var makes = document.getElementById("makes").value.split(/\s*[\s,]\s*/);
-	if (isNaN(makes[0])) {
+	if (makes[0] <= 0) {
 		makes = [];
 	}
 	// Add in the extra points

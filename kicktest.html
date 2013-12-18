@@ -1,19 +1,23 @@
 <html>
 <script>
- function setArrays(input) {
-    var result = input;
-    for (var inx = 0; inx < input.xpmakes; inx++){
-        result.makes.push(20);
+ function setArrays() {
+    var inx,jnx;
+    for (jnx = 0; jnx < input.length; jnx++) {
+        for (inx = 0; inx < input[jnx].xpmakes; inx++){
+            input[jnx].makes.push(20);
+        }
+        for (inx = 0; inx < input[jnx].xpmisses; inx++){
+            input[jnx].misses.push(20);
+        }
     }
-    for (inx = 0; inx < input.xpmisses; inx++){
-        result.misses.push(20);
-    }
-    return result;
  }
  function go() {
     var current, tr, td, string;
     var testtable = document.getElementById("testtable");
-	for (var inx = 0; inx < input.length; inx++){
+    testtable.innerHTML="<tr><th>Makes</th><th>Misses</th><th>XP Makes</th><th>XP Misses</th><th>Rating</th></tr>";
+    var count = parseInt(document.getElementById("testtext").value);
+    count = count ? count : input.length;
+	for (var inx = 0; inx < count; inx++){
         current = input[inx];
         tr = document.createElement("tr");
         td = document.createElement("td");
@@ -28,9 +32,8 @@
         td = document.createElement("td");
         td.innerHTML = current.xpmisses;
         tr.appendChild(td);
-        temp = setArrays(input[inx]);
         td = document.createElement("td");
-        td.innerHTML = Math.round(calculate (temp.makes, temp.misses) * 10000.0) / 100.0 + "%";
+        td.innerHTML = Math.round(calculate (current.makes, current.misses) * 10000.0) / 100.0 + "%";
         tr.appendChild(td);
         testtable.appendChild(tr);
 	}
@@ -38,16 +41,10 @@
 </script>
 <script src="javascripts/kick.js"></script>
 <script src="javascripts/kicktest.js"></script>
-<body onload="go()">
+<body onload="setArrays()">
+Trials:<input type="text" id="testtext"></input><input type="button" onclick="go();" value="GO"></input>
 <table border="1px solid black" style="border-collapse:collapse;">
 <tbody id="testtable">
-<tr>
-<th>Makes</th>
-<th>Misses</th>
-<th>XP Makes</th>
-<th>XP Misses</th>
-<th>Rating</th>
-</tr>
 </tbody>
 </table>
 </body>

@@ -2,6 +2,9 @@
         {makes:[],misses:[],xpmakes:0,xpmisses:0},
         {makes:[],misses:[],xpmakes:1,xpmisses:0},
         {makes:[],misses:[],xpmakes:5,xpmisses:0},
+        {makes:[],misses:[],xpmakes:0,xpmisses:1},
+        {makes:[],misses:[],xpmakes:0,xpmisses:2},
+        {makes:[],misses:[],xpmakes:0,xpmisses:3},
         {makes:[50],misses:[],xpmakes:0,xpmisses:0},
         {makes:[50],misses:[50],xpmakes:0,xpmisses:0},
         {makes:[25,25,25,25,25],misses:[],xpmakes:0,xpmisses:0},
@@ -31,6 +34,5 @@
         {makes:[],misses:[30,30,30,30],xpmakes:0,xpmisses:0},
         {makes:[],misses:[40],xpmakes:0,xpmisses:0},
         {makes:[],misses:[30],xpmakes:0,xpmisses:0},
-        {makes:[],misses:[18],xpmakes:0,xpmisses:0},
-        {makes:[],misses:[],xpmakes:0,xpmisses:1}
+        {makes:[],misses:[18],xpmakes:0,xpmisses:0}
     ];

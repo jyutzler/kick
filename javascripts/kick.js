@@ -18,23 +18,33 @@ function formula (distance) {
     }
     return result;
 }
-function oddsof (kicks, nummakes, inx2){
-    var result, subkicks, inx, jnx, subtotal;
-    if (kicks.length == nummakes) {
+function oddsof (kicks, nummakes, misses){
+    var result, newMisses, inx, jnx, count, curr;
+    misses = misses ? misses : [];
+    count = 0;
+    for (jnx in misses) {
+        count++;
+    }
+    if ((kicks.length - count) == nummakes) {
         result = 1;
         for (inx in kicks) {
-            result *= formula(kicks[inx]);
+            curr = formula(kicks[inx]);
+            result *= (inx in misses) ? (1 - curr) : curr;
         }
     } else {
         result = 0;
-        for (inx = (inx2 ? inx2 : 0); inx < kicks.length; inx++) {
-            subtotal = 1;
-            for (jnx = 0; jnx < inx + 1; jnx++) {
-                subtotal *= (1 - formula(kicks[jnx]));
-            }            
-            subkicks = kicks.slice(0);
-            subkicks.splice(inx,1);
-            result += subtotal * oddsof(subkicks, nummakes, inx + 1);
+        count = 0;
+        for (jnx in misses) {
+            count++;
+        }
+        for (inx = count; inx < kicks.length; inx++) {
+            newMisses = misses.slice();
+            if(newMisses[inx]){
+                continue;
+            } else {
+                newMisses[inx] = {};
+                result += oddsof(kicks, nummakes, newMisses);
+            }
         }
     }
     return result;

@@ -11,6 +11,16 @@
  * as an event handler to a button
  */
 function go() {
+	// Get the selected competition level and map to yaw parameter
+	var level = document.querySelector('input[name="level"]:checked').value;
+	var yaw;
+	if (level === "HS") {
+		yaw = 30.0;
+	} else if (level === "NFL") {
+		yaw = 40.0;
+	} else {
+		yaw = 35.0; // NCAA default
+	}
 	// Parse the makes into an array (filtering out empty responses)
 	var makes = document.getElementById("makes").value.split(" ");
 	if (isNaN(makes[0])) {
@@ -20,7 +30,7 @@ function go() {
 	for (var inx = 0; inx < document.getElementById("xpmakes").value; inx++){
 		makes.push (20);
 	}
-	// Parse the misses into an array 
+	// Parse the misses into an array
 	var misses = document.getElementById("misses").value;
 	misses = isNaN(misses[0]) ? [] : misses.split(" ");
 	// Make a temporary array containing the missed extra points
@@ -31,7 +41,7 @@ function go() {
 	}
 	misses = tempMisses.concat(misses);
 	// Call the algorithm and present the results
-	var answer = calculate (makes, misses);
+	var answer = calculate (makes, misses, yaw);
     // Turn the answer into a rounded percentage
     answer = (Math.round(answer * 10000.0) / 100.0);
 	document.getElementById("answer").innerHTML = "Grade: " + answer + "%";
@@ -44,6 +54,28 @@ function go() {
 <tr>
 <td colspan="2">
 <H1>Field Goal Grading Calculator</H1>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<H3>Competition Level</H3>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<input type="radio" id="levelHS" name="level" value="HS"/>
+<label for="levelHS">High School</label>
+&nbsp;&nbsp;
+<input type="radio" id="levelNCAA" name="level" value="NCAA" checked/>
+<label for="levelNCAA">NCAA</label>
+&nbsp;&nbsp;
+<input type="radio" id="levelNFL" name="level" value="NFL"/>
+<label for="levelNFL">NFL</label>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+&nbsp;
 </td>
 </tr>
 <tr>

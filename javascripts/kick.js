@@ -1,19 +1,23 @@
-/** 
+/**
  * Calculates kicker rating
- * taking two arrays as input 
- * and returning a percentage
+ * @param {Array} makes - Array of successful kick distances in yards
+ * @param {Array} misses - Array of missed kick distances in yards
+ * @param {number} yaw - Bonus threshold distance in yards
+ *                       Typical values: 30.0 (HS), 35.0 (NCAA, default), 40.0 (NFL)
+ * @returns {number} Rating as decimal (0.0-1.0 range before percentage conversion)
  */
-function calculate (makes, misses) {
+function calculate (makes, misses, yaw) {
+	// Default to NCAA if yaw not provided
+	if (yaw === undefined) {
+		yaw = 35.0;
+	}
 	// Three variables control the scaling of the algorithm
 	// I call them pitch, yaw, and roll for lack of better terms
-	// Affects the size of the penalty for missed kicks  
+	// Affects the size of the penalty for missed kicks
 	var pitch = 20.0;
-	// Determines the start for bonus points for longer makes and
+	// yaw determines the start for bonus points for longer makes and
 	// affects the decrease of the size of the penalty for longer misses
 	// yaw + pitch equals the point at which there is zero penalty for missing
-	// var yaw = 30.0; // high school
-	var yaw = 35.0; // NCAA
-	// var yaw = 40.0; // NFL
 	// The rate at which bonus points are awarded for longer kicks
 	var roll = 10.0;
 	var gentleman = .75; // Gentlemen's C

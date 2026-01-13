@@ -21,6 +21,8 @@ function go() {
 	} else {
 		yaw = 35.0; // NCAA default
 	}
+	// Get the extra point distance
+	var xpDistance = Number(document.getElementById("xpdistance").value);
 	// Parse the makes into an array (filtering out empty responses)
 	var makes = document.getElementById("makes").value.split(" ");
 	if (isNaN(makes[0])) {
@@ -28,7 +30,7 @@ function go() {
 	}
 	// Add in the extra points
 	for (var inx = 0; inx < document.getElementById("xpmakes").value; inx++){
-		makes.push (20);
+		makes.push (xpDistance);
 	}
 	// Parse the misses into an array
 	var misses = document.getElementById("misses").value;
@@ -37,7 +39,7 @@ function go() {
 	// and insert it to the beginning of the misses array
 	var tempMisses = [];
 	for (inx = 0; inx < document.getElementById("xpmisses").value; inx++){
-		tempMisses.push (20);
+		tempMisses.push (xpDistance);
 	}
 	misses = tempMisses.concat(misses);
 	// Call the algorithm and present the results
@@ -85,14 +87,16 @@ function go() {
 </tr>
 <tr>
 <td colspan="2">
-<i>
-Extra points count the same as 20 yard field goals.
-</i>
+Distance:
+<select id="xpdistance">
+<option value="20" selected>20 yards (NCAA/HS)</option>
+<option value="33">33 yards (NFL 2015+)</option>
+</select>
 </td>
 </tr>
 <tr>
 <td>
-Makes: 
+Makes:
 <input type="text" id="xpmakes" size="5"/>
 </td>
 <td>

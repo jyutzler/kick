@@ -21,7 +21,7 @@ function calculate (makes, misses, yaw) {
 	// The rate at which bonus points are awarded for longer kicks
 	var roll = 10.0;
 	var gentleman = .75; // Gentlemen's C
-	var exp = 3.0;
+	var exp = 4.0;
 	// Some temporary values
 	var current, sortedMisses;
 	// Provide a small starting value so the kicker starts 
